@@ -1,29 +1,32 @@
 
 
-export class PokemonLargo {
-  public readonly id: number;
-  public name: string;
+export class Pokemon {
 
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-    console.log('construnctor llamado');
+  get imageUrl(): string {
+    return `http://pokemon.com/${this.id}.jpg`
   }
 
-}
-export const charmander = new PokemonLargo(5, 'Charmander')
 
-
-export class Pokemoncorto {
   constructor(
-    public id: number,
-    public name: string
-  ) {
+    public readonly id: number,
+    public name: string,
+    // public imageURL: string,
+  ) { }
 
+  scream() {
+    console.log(`${this.name.toUpperCase()} !!!`);
   }
+  speak() {
+    console.log(`${this.name},  ${this.name}`);
+  }
+
+
 }
+export const charmander = new Pokemon(5, 'Charmander')
 
-charmander.id = 10;
-charmander.name = 'Mew'
 
-export const chamilion = new Pokemoncorto(2, 'Chamilion');
+console.log(charmander.imageUrl);
+
+
+charmander.scream;
+charmander.speak;
