@@ -1,5 +1,7 @@
 // import { pokemons } from './bases/02-objects'
-import { charmander } from './bases/03-clases'
+// import { charmander } from './bases/03-clases'
+import { charmander } from './bases/04-injection'
+
 import './style.css'
 // import typescriptLogo from './typescript.svg'
 // import viteLogo from '/vite.svg'
