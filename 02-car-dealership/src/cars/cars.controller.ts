@@ -27,13 +27,13 @@ export class CarsController {
 
   @Patch(':id')
   updateCar(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() body: any) {
     return body;
   }
 
   @Delete(':id')
-  deleteCar(@Param('id') id: number) {
+  deleteCar(@Param('id') id: string) {
     return {
       method: 'delete',
       id
