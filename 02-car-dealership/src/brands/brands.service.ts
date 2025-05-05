@@ -71,7 +71,10 @@ export class BrandsService {
   }
 
   remove(id: string) {
+    const tempDelete = this.findOne(id);
     this.brands = this.brands.filter(brand => brand.id !== id);
+    return tempDelete;
+
   }
 
 
