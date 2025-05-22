@@ -90,9 +90,15 @@ export class PokemonService {
 
     // return { id }
 
-    const result = this.pokemonModel.findByIdAndDelete(id);
+    // const result = await this.pokemonModel.findByIdAndDelete(id);
 
-    return result;
+    const { deletedCount } = await this.pokemonModel.deleteOne({ _id: id });
+
+    if (deletedCount === 0) {
+      throw new BadRequestException(`Pokemon with ${id} not found `)
+    }
+
+    return;
 
   }
 
