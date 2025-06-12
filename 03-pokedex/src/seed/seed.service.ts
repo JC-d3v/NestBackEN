@@ -12,6 +12,7 @@ export class SeedService {
   private readonly axios: AxiosInstance = axios;
 
   constructor(
+
     @InjectModel(Pokemon.name)
     private readonly pokemonModel: Model<Pokemon>
   ) { }
@@ -22,26 +23,20 @@ export class SeedService {
 
     await this.pokemonModel.deleteMany(); // delete * from Pokemon
 
-    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=10');
+    const { data } = await this.axios.get<PokeResponse>('https://pokeapi.co/api/v2/pokemon?limit=650');
 
-    const insertPromisesArray = [];
-
-
+    const pokemonToInsert: { name: string, nro: number }[] = [];
 
     data.results.forEach(({ name, url }) => {
       const segments = url.split('/');
       const nro: number = +segments[segments.length - 2];
 
       // const pokemon = await this.pokemonModel.create({ name, nro })
-
-      insertPromisesArray.push(
-        this.pokemonModel.create({ name, nro })
-      );
+      pokemonToInsert.push({ name, nro }); // 
 
     });
 
-    await Promise.all(insertPromisesArray);
-
+    await this.pokemonModel.insertMany(pokemonToInsert);
 
 
     return 'Seed Excecuted';
