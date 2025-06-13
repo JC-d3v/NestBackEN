@@ -32,6 +32,8 @@ export class AppModule {
 
   constructor() {
 
+    // console.log(process.env);
+
   }
 
 }
