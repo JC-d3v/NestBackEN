@@ -30,6 +30,7 @@ yarn start:dev
 8. construir la base con la semilla 
 http://localhost:3000/api/v2/seed
 
+heroku fue descartado pues al momento de edicion no cuenta con plan gratuito.
 
 
 ## Stack Usado
