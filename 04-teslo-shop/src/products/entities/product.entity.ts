@@ -7,12 +7,12 @@ export class Product {
   id: string;
 
   @Column('text', {
-    unique: true
+    unique: true,
   })
-  title: string
+  title: string;
 
   @Column('numeric', {
-    default: 0
+    default: 0,
   })
   price: number;
 
@@ -23,17 +23,17 @@ export class Product {
   description: string;
 
   @Column('text', {
-    unique: true
+    unique: true,
   })
   slug: string;
 
   @Column('int', {
-    default: 0
+    default: 0,
   })
   stock: number;
 
   @Column('text', {
-    array: true
+    array: true,
   })
   sizes: string[];
 
