@@ -4,8 +4,26 @@
 
 # TesloDB API
 
-1. levantar imagen doker con la base de datos
+1. clonar proyecto
+
+2. Instalar Aplicacion
+
+```
+yarn install
+```
+
+3. clonar el archivo ___.env.template___ y renombrarlo a ___.env___
+
+4. cambiar las variables de entorno
+
+
+5. levantar imagen doker con la base de datos
 
 ```
 docker-compose up -d
+```
+6. levantar modo de desarrollo
+
+```
+yarn start:dev
 ```
