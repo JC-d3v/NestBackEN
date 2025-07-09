@@ -76,10 +76,18 @@ cd "$REPO_ROOT" || { echo "Error: No se pudo navegar a la raíz del repositorio.
 # Añadir el archivo de la nota al index de Git
 git add "$NOTE_FILE"
 
+# Crear un directorio temporal para los hooks vacíos
+TEMP_HOOKS_DIR=$(mktemp -d)
+
 # Crear un nuevo commit con el archivo de la nota
-# Usamos --no-verify para evitar que este commit dispare de nuevo los hooks (y un bucle infinito)
-# Y --allow-empty si por alguna razón el archivo estuviera vacío (poco probable aquí)
-git commit -m "docs: Add study notes for commit $SHORT_COMMIT_HASH" --no-verify --allow-empty
+# Configuramos GIT_HOOK_PATH para que apunte a un directorio sin hooks, evitando así el bucle
+GIT_DIR="$(git rev-parse --git-dir)" \
+GIT_WORK_TREE="$REPO_ROOT" \
+GIT_COMMITTER_DATE="$(git log -1 --format=%cd)" \
+git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "docs: Add study notes for commit $SHORT_COMMIT_HASH" --allow-empty
+
+# Limpiar el directorio temporal de hooks
+rmdir "$TEMP_HOOKS_DIR"
 
 echo "Apunte de estudio comiteado como parte del repositorio."
 
