@@ -89,7 +89,7 @@ TEMP_HOOKS_DIR=$(mktemp -d)
 GIT_DIR="$(git rev-parse --git-dir)" \
 GIT_WORK_TREE="$REPO_ROOT" \
 GIT_COMMITTER_DATE="$(git log -1 --format=%cd)" \
-git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "docs: Add study notes for commit $SHORT_COMMIT_HASH" --allow-empty
+git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "docs: $COMMIT_MESSAGE -- $SHORT_COMMIT_HASH" --allow-empty
 
 # Limpiar el directorio temporal de hooks
 rmdir "$TEMP_HOOKS_DIR"
