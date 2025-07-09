@@ -38,7 +38,7 @@ fi
 # --- Fin de la generación de la respuesta de Gemini ---
 
 # Definir la ruta relativa al repositorio para guardar las notas
-# Vamos a usar un directorio oculto para mantenerlo un poco más organizado
+# Vamos a usar un directorio oculto para mantenerlo un poco más organizado, revisar cambios de ruta
 NOTES_DIR="/devel/NestBackEN/.study_notes"
 mkdir -p "$NOTES_DIR" # Crea el directorio si no existe dentro del repositorio
 
