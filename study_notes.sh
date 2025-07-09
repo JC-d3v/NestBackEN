@@ -46,7 +46,7 @@ mkdir -p "$NOTES_DIR" # Crea el directorio si no existe dentro del repositorio
 # Esto vincula directamente la nota con el commit de origen
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 SHORT_COMMIT_HASH=${COMMIT_HASH:0:7}
-NOTE_FILE="$NOTES_DIR/$COMMIT_MESSAGE_${TIMESTAMP}_${SHORT_COMMIT_HASH}.md"
+NOTE_FILE="$NOTES_DIR/${COMMIT_MESSAGE}_${TIMESTAMP}_${SHORT_COMMIT_HASH}.md"
 
 # Escribir la respuesta de Gemini en el archivo de notas
 # Puedes personalizar el encabezado de la nota
