@@ -15,7 +15,6 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 COMMIT_DIFF=$(git diff HEAD~1 HEAD)
 
 # Preparar el prompt para Gemini
-# Puedes ajustar el prompt según el nivel de detalle y formato que desees para tus apuntes.
 COMANDO="Basado en el siguiente commit de Git, genera un apunte de estudio en formato Markdown que explique los cambios clave y su importancia para un curso de desarrollo, aplica tabulaciones y saltos de linea a los segmentos de codigo para una facil lectura. Incluye el mensaje del commit y un resumen del código.
 
 Mensaje del Commit:
@@ -25,31 +24,24 @@ Cambios en el Código (diff):
 $COMMIT_DIFF"
 
 # --- Inicio de la generación de la respuesta de Gemini ---
-# Envía el prompt a Gemini CLI y guarda la salida
-# npx @google/gemini-cli -p "$COMANDO" podría requerir autenticación
-# Asegúrate de que GEMINI_API_KEY esté configurada en tu entorno o en un archivo .env
-# Usamos 'grep -v '```' para eliminar bloques de código que Gemini podría incluir por error fuera de un bloque de código Markdown
 GEMINI_RESPONSE=$(npx @google/gemini-cli -p "$COMANDO" | grep -v '```')
 
-# Si la respuesta de Gemini es vacía o muy corta, puedes añadir un mensaje predeterminado
 if [[ -z "$GEMINI_RESPONSE" || "${#GEMINI_RESPONSE}" -lt 20 ]]; then
     GEMINI_RESPONSE="No se pudo generar un apunte detallado para este commit. Revisar el contenido del commit: $COMMIT_MESSAGE"
 fi
 # --- Fin de la generación de la respuesta de Gemini ---
 
 # Definir la ruta relativa al repositorio para guardar las notas
-# Vamos a usar un directorio oculto para mantenerlo un poco más organizado, revisar cambios de ruta
-NOTES_DIR="/devel/NestBackEN/.study_notes"
-mkdir -p "$NOTES_DIR" # Crea el directorio si no existe dentro del repositorio
+NOTES_DIR="/devel/NestBackEN/.study_notes" # Asegúrate de que esta ruta sea la correcta
+mkdir -p "$NOTES_DIR" # Crea el directorio si no existe
 
-# Generar un nombre de archivo único basado en el hash del commit original
-# Esto vincula directamente la nota con el commit de origen
+# Generar un nombre de archivo único
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 SHORT_COMMIT_HASH=${COMMIT_HASH:0:7}
-NOTE_FILE="$NOTES_DIR/${COMMIT_MESSAGE}_${TIMESTAMP}_${SHORT_COMMIT_HASH}.md"
+NOTE_FILENAME_SANITIZED=$(echo "$COMMIT_MESSAGE" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
+NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}_${TIMESTAMP}_${SHORT_COMMIT_HASH}.md"
 
 # Escribir la respuesta de Gemini en el archivo de notas
-# Puedes personalizar el encabezado de la nota
 echo "# Apunte de Estudio para Commit: \`$SHORT_COMMIT_HASH\`" > "$NOTE_FILE"
 echo "" >> "$NOTE_FILE"
 echo "## Mensaje del Commit Original" >> "$NOTE_FILE"
@@ -65,7 +57,10 @@ echo "*Este apunte fue generado automáticamente por Gemini CLI.*" >> "$NOTE_FIL
 
 echo "Apunte de estudio generado en: $NOTE_FILE"
 
-# --- Comitear la nota ---
+---
+
+# --- Proceso de comitear y luego deshacer el commit de la nota ---
+
 # Guardar el directorio de trabajo actual
 ORIGINAL_DIR=$(pwd)
 
@@ -73,31 +68,38 @@ ORIGINAL_DIR=$(pwd)
 REPO_ROOT=$(git rev-parse --show-toplevel)
 cd "$REPO_ROOT" || { echo "Error: No se pudo navegar a la raíz del repositorio."; exit 1; }
 
-# Guardar la rama actual para volver a ella después
-CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-
-# Crear o cambiar a la rama de notas
-git checkout -B study-notes # -B crea la rama si no existe o la reinicia si ya existe
-
 # Añadir el archivo de la nota al index de Git
 git add "$NOTE_FILE"
 
-# Crear un directorio temporal para los hooks vacíos (para este commit en esta rama)
+# Comprobar si hay cambios en el staging area (además de la nota)
+# Si solo está la nota, el siguiente commit será solo para la nota.
+# Si hay otros cambios, se comitearán junto con la nota.
+# Esto es crucial: el 'git reset --soft HEAD~1' deshará el ÚLTIMO commit,
+# que debe ser el de la nota. Si hay otros commits, no funcionará como esperas.
+
+# Crear un directorio temporal para los hooks vacíos para evitar el bucle
 TEMP_HOOKS_DIR=$(mktemp -d)
 
-# Crear un nuevo commit con el archivo de la nota en la rama 'study-notes'
+# Crear un nuevo commit con el archivo de la nota
+echo "Creando commit temporal para la nota..."
 GIT_DIR="$(git rev-parse --git-dir)" \
 GIT_WORK_TREE="$REPO_ROOT" \
-GIT_COMMITTER_DATE="$(git log -1 --format=%cd)" \
-git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "docs: Add study notes for commit $SHORT_COMMIT_HASH" --allow-empty
+git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "temp(notes): Adding study notes for commit $SHORT_COMMIT_HASH (will be squashed)" --no-verify --allow-empty
 
 # Limpiar el directorio temporal de hooks
 rmdir "$TEMP_HOOKS_DIR"
 
-echo "Apunte de estudio comiteado en la rama 'study-notes'."
+echo "Commit temporal creado. Ahora desandando el commit..."
 
-# Volver a la rama original
-git checkout "$CURRENT_BRANCH"
+# Deshacer el último commit (el de la nota) pero mantener los cambios en el staging area
+# Esto mueve HEAD un commit hacia atrás, pero deja los archivos de ese commit en el índice.
+# ¡Asegúrate de que este es el ÚLTIMO commit para que funcione correctamente!
+git reset --soft HEAD~1
+
+echo "Commit temporal deshecho. Los archivos de la nota están en el staging area."
+echo "Puedes verlos con 'git status'."
+echo "Si no quieres que la nota se incluya en el próximo commit, usa 'git reset HEAD \"$NOTE_FILE\"'."
+echo "Se recomienda añadir '/.study_notes/' a tu .gitignore para evitar tracking futuro."
 
 # Volver al directorio original
 cd "$ORIGINAL_DIR" || { echo "Error: No se pudo volver al directorio original."; exit 1; }
