@@ -69,18 +69,23 @@ echo "Apunte de estudio generado en: $NOTE_FILE"
 # Guardar el directorio de trabajo actual
 ORIGINAL_DIR=$(pwd)
 
-# Navegar a la raíz del repositorio para asegurar que el `git add` y `git commit` funcionen correctamente
+# Navegar a la raíz del repositorio
 REPO_ROOT=$(git rev-parse --show-toplevel)
 cd "$REPO_ROOT" || { echo "Error: No se pudo navegar a la raíz del repositorio."; exit 1; }
+
+# Guardar la rama actual para volver a ella después
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Crear o cambiar a la rama de notas
+git checkout -B study-notes # -B crea la rama si no existe o la reinicia si ya existe
 
 # Añadir el archivo de la nota al index de Git
 git add "$NOTE_FILE"
 
-# Crear un directorio temporal para los hooks vacíos
+# Crear un directorio temporal para los hooks vacíos (para este commit en esta rama)
 TEMP_HOOKS_DIR=$(mktemp -d)
 
-# Crear un nuevo commit con el archivo de la nota
-# Configuramos GIT_HOOK_PATH para que apunte a un directorio sin hooks, evitando así el bucle
+# Crear un nuevo commit con el archivo de la nota en la rama 'study-notes'
 GIT_DIR="$(git rev-parse --git-dir)" \
 GIT_WORK_TREE="$REPO_ROOT" \
 GIT_COMMITTER_DATE="$(git log -1 --format=%cd)" \
@@ -89,7 +94,10 @@ git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "docs: Add study notes for com
 # Limpiar el directorio temporal de hooks
 rmdir "$TEMP_HOOKS_DIR"
 
-echo "Apunte de estudio comiteado como parte del repositorio."
+echo "Apunte de estudio comiteado en la rama 'study-notes'."
 
-# Volver al directorio original (si es necesario para otros hooks)
+# Volver a la rama original
+git checkout "$CURRENT_BRANCH"
+
+# Volver al directorio original
 cd "$ORIGINAL_DIR" || { echo "Error: No se pudo volver al directorio original."; exit 1; }
