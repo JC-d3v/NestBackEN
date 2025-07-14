@@ -13,8 +13,8 @@ COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
 # Obtener el diff del último commit
 # IMPORTANTE: Obtener el diff del commit que ACABA de ocurrir
-COMMIT_DIFF=$(git diff --staged)
-# COMMIT_DIFF=$(git diff 68002b7 3052868)
+# COMMIT_DIFF=$(git diff --staged)
+COMMIT_DIFF=$(git diff 68002b7 3052868)
 
 # Preparar el prompt para Gemini
 COMANDO="Basado en el siguiente commit de Git, genera un apunte de estudio en formato Markdown que explique los cambios clave y su importancia para un curso de desarrollo,aplica SmartyPants, tabulaciones y saltos de linea a los segmentos de codigo para una facil lectura, omite los cambios del contenido de la carpeta '.study_notes'.

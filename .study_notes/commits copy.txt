@@ -1,0 +1,96 @@
+be6d017	be6d0176c185bb7d1dffa3e9c440f42199ad83b6	S10 - UPDATE en TypeORM
+44b6c22	44b6c228269088075f8b350ace621d93437e39cd	test final de notas
+a549fe1	a549fe1b4174fc67331c8bbe2d68bb33272dcbbc	S10 apuntes 9
+2da2cca	2da2ccaa7f3a4c7260d3e5bdd08b479dbcb629fa	S10 apuntes 8
+223dedb	223dedbb5655f60822c9061ed03c7dd3eb21f2ee	S10 Apuntes 7
+4a83b80	4a83b80303434cbacfa21dd775e7004cf80edc22	docs: Add study notes for commit 40f507c
+40f507c	40f507c4338ff9e6a41f8da52813d0e1bb5674d0	S10 Apuntes 6
+9b8c510	9b8c510dfdbbad0052256da24d1be8a38c8722c8	docs: Add study notes for commit 6f8a326
+6f8a326	6f8a32633f0026dfd7cc1d860de7055e4837ca3b	docs: Add study notes for commit 90f710a
+90f710a	90f710afbcc9f6dbf4dbfd47c9549a30483ada54	docs: Add study notes for commit e722e91
+e722e91	e722e91e36ec26cb597a32f5627639733dbcf37b	docs: Add study notes for commit 4aa8b3a
+4aa8b3a	4aa8b3a0ac506f3a5566a0b8469e45cc54f234cf	S10 apuntes5
+57a8484	57a8484a59f4ca73efcd948ae4c3ffe48cd6bfae	S10 apuntes3
+40439ac	40439ac0550317ad3ec5a41596fc8a912d731bb7	S10 apuntes 2
+06dfb16	06dfb166cb44443ac02cfa640e9166d56c8c46dd	docs: Add study notes for commit 8167931
+8167931	81679316c9ffd296be9042b7d66fcc7bcadd1fb8	S10 apuntes
+2f9f37f	2f9f37f90ea887338d551753efed6f5e5d5b68f2	S10 - QueryBuilder
+f3b06eb	f3b06eb89367f0035dc300a2ac997026e03fbd7a	S10 - Buscar por Slug o UUID
+be40600	be40600ec138db7ce2e8b6a078a75cc902a82104	S10 - Paginar en TypeORM
+b9d8438	b9d84387bcfd59fcea34f3f9045d58dd0e458b30	S10 - Get y Delete TypeORM
+d2713d7	d2713d7cc8181d9c2c3456dbd8335789b9858cb0	S10 - BeforeInsert y BeforeUpdate
+2e3ed29	2e3ed29a31baedb82d038633b82db44e416fd9d8	S10 - Manejo de Errores
+89f4523	89f4523fb82eea573d088f386bc967cb9fd4d72c	S10 - Insertar usando TypeORM
+88d5580	88d5580f6578db36157ba17bc3170ea22029c453	S10 - Create Product DTO
+2b459ea	2b459ea68ab4d3f7331418aad50a630616032259	S10 - Entidad sin relaciones
+0ab4a7f	0ab4a7f35d5cbb390991472206589ea7b78942fb	S10 - TypeORM - Entity - Product
+4643b07	4643b07ab5a57f983dd48c1e3a54ca45b4767038	S10 - Conectar Posgres con Nest
+f7a7cdd	f7a7cdd70b5742b05be2151c5d68f7993362d84a	S10 - Dcker - Instalar y correo postgres
+d23a595	d23a5957b4eb4f496231833934a46c56c898037b	S10 - Inicio de Proyecto TesloShop
+5034296	503429614a1083f753c5174c68e3f2e7fb568a4e	S9 - MongoDB Aprovisionamiento
+4c50407	4c50407a9fdd480b25a7d0b1c79a72fa69564b3d	S9 - ENV Template - Readme
+d2335ac	d2335acfc562fe28cf7b8d2bcab8cd18e107e4e8	S9 - Joi Validation Schema
+7a223e1	7a223e1e721940898eb907137c0721540f5d582d	S9 - Configuration Service
+959095c	959095cc7b4f3d3e7bcc18d22144f3cf874ff283	S9 - Configuration Loader
+951e0f8	951e0f8d5a5fb6017660737d2d8e8a3a32a099bf	S9 - Configuracion de variables de entorno
+5b2930b	5b2930b52cc465145059e71cfca107fd6f4b8472	S8 - Transform Dto
+381a10b	381a10b5876544c7eb6281c347761eabeb135e90	S8 - Paginacin de Pokemons
+1900543	190054349a7e38c864f3cd2a021eb492bfbb1846	S8 - Crear un custom provider
+41ad6af	41ad6afad98dd94e94ddab47d6b06c8b9289c6d9	S8 - Codigo A
+3288b65	3288b650fa604d84b88ae4f46385c609a21c682f	S8 - Insertar multipes registros simultaneamente
+676308c	676308c9ca2d7eaa49d02ff2c5baea1214400f7a	S8 - Tarea insertar Pokemons por lote
+36000c7	36000c78fd5465e642cdfac3f0d6ff1b40c2b00f	S8 - Realizar peticion http desde nest
+cc1050a	cc1050ae29c835e134ab8832da971438905ff3bb	S8 - crear modulo SEED
+83af72f	83af72f20522b65fee232d0a81b7afa3d43ce134	S7 - Validar y eliminar en una sola consulta
+84233d5	84233d56b896b3a31a7231dd476dd29e2c467306	S7 - Custom Pipes ParseMongoldPipe
+873e9e2	873e9e2f63b8912343b9c914a7f865c0b87be0cd	S7 - Eliminar un Pokemon
+dbfb1c3	dbfb1c324ec6b30a542e1d8e1a8387242b4688fa	S7- Tarea Validar valores unicos
+726d251	726d2519ef54c5dea02fe5e85a7226a8162033b1	S7 - Actualizar poKemon en base de datos
+56d660e	56d660e1431eeb6c82d0e918298b19a5cfa84e35	S7 - FindOneBy - Buscar por nombre. Mongold y nro
+e2a7559	e2a7559aef92fdc945b976754b6b04118f4f9a28	S7 - Responder un error especifico
+c4f5059	c4f5059a3d082bb27a20ec01237cfcf0a9cc2f56	S7 - Crear Pokemon en base de datos
+755af62	755af624c3b68452f5c9137782e54fc584caf722	S7 - Recibir y validar la data
+896e474	896e47482d16afd70951dbf997c466a16d259a90	S7 - Crear esquemas y modelos
+58be18b	58be18bb9f0357a0f7bf08a9968d0bf7e1678dfe	S7 - Conectar Nest con MongoDB
+06fdb69	06fdb69d3dd95ff118329bd2ed938bcc43e85e61	S7-Doker-DockerCompose - MongoDB
+d67426f	d67426ff43f7a12b4106aa651dfc8905a20607c1	S7-Global prefix
+a5e9611	a5e9611b445d32b77e5f58aea4f6900379833e45	S7-Servir contenido estatico
+a35aa9e	a35aa9e01aa2dbf035ec03e559ffe8a37d469d45	S6 - Generar Build de producion
+23305eb	23305eb5296db454e4341af8d19b352986a72304	S5 - Injectar servicios para insertar SEED
+bbe3d19	bbe3d195c75473c7e11c418887990f462fcb797a	S5 - Preparar servicios para insertar SEED
+751848c	751848c8c768988041b1a4b3fb671ac3a12152df	S5 - Crear srvicio SEED para cargar datos
+facfed1	facfed15f4e052b72ad936ecbe2f1397c9acc704	S5 - Nest CLI Resource Brands
+7c33f1c	7c33f1c99f4aa85e1f3c21ab191c2ad28b856eb7	S4 - Borrar un carro
+357c757	357c7576a50b59665a05eefa9a8050b6ad73844a	S4 - Actializar el listado de carros
+1073994	1073994379b731ee58a92c50b79707e5b9d92288	S4 - Actualizar un carro
+1c9cce9	1c9cce933e861a142b2026b7f1bd46e8bc873b01	S4 - Crear nuevo carro
+82414e7	82414e749d9273c2ad16002bbb1656c7dfa23e5c	S4 - Pipes Globales a nivel de aplicacion
+b9c120e	b9c120e51a648e91484ef3b07d83994ccd9d7c9d	S4 - Validation Pipe class validator y transformer
+a29c165	a29c165b5971492788b1b5b7cda5e07d2a1ff6b2	S4 - DTO Data Transfer Object
+0827e2e	0827e2e05c1fac5497d08df5b55f1dcea2a562f5	S4 - Pipe ParseUUIDPipe
+d0e8046	d0e804636555dcede4ac5dab93e81cce62e63295	S4 - Pipe ParseUUIDPipe
+0af677c	0af677cc0b941cc9f5109ebcbf4f1078dbaa004f	S4 Interfaces y UUID
+45bd2de	45bd2de0268f7e6314fdaf696d7579add81d9adf	S3 Post Patch Delete
+b52a17e	b52a17e098fd3a331a89c1b37cd73673ed9fb5ca	S3 Exception Filters
+0578346	05783466d032e8e2425d39a489a37b566e4b26af	S3 Pipes
+b91bee6	b91bee67f0476fcf22cf5dd0c00b5f9bb3184820	S3 Injeccion de dependencias
+d65080d	d65080da68ae0f4a00f01bbde4ccbf9bf920cf28	S3 Servicios
+4c1ed56	4c1ed56c745301e0661e3852fd046b195e4e6fcd	S3 Obtener un carro por ID
+3052868	3052868954e4237907020e8b8665533eaef4153a	S3 Controladores
+68002b7	68002b720d8e233483849de3cb1c7405d8e41784	S3 Modulos
+6b941ab	6b941ab4af86b2a8ab7796a899f5f17130c05454	S3 Explicacion de cada archivo y directorio
+f3dfdbd	f3dfdbd45baf2d07f156f3823477dcaef672bd3f	S3 Generar nuestro primer proyecto CarDealership
+1301595	1301595025172adf0dc43ad8124caba9061761ec	S2 Decorador de metodo
+d8511bf	d8511bf721836c732825a1ccdb536803d6fc509e	S3 Decoradores
+d958147	d9581474abb62df68743567303bd80d3d5b1b7b1	S2 Resolver el principio de sustitucion
+1703a44	1703a4438f70c0563f9a2dd7bdf47b315ecd4c1f	S2 Genericos + sustitucion de liskov
+4240015	4240015f86e7fe5a27e781bf9132a2f2a3465237	S2 Inyeccion de dependencias
+c06ee29	c06ee294c66087cccb63901ead19aa6cfc3c290a	S2 Colocar tipo de datos a respuesta http (genericos)
+439dbfa	439dbfaeca0902addf0cff6d31f86892415486fb	S2 metodos asincronos
+a759a5f	a759a5f2a716a601f318273aa90b6332a6d068a6	S2 Getters, Metodos y This
+d79859f	d79859f38da776df3af9767783cc64aaed804b04	S2 clases y forma abreviada
+813ce75	813ce75a43e2ac40546cf2bf333f18faa3c4e9a0	S2 Tipos en Arreglos
+c44f8e5	c44f8e5a5e9888b9946d113e4eaf43e8fceee4f1	S2 Objetos e interfaces
+0b52d59	0b52d5945d9d911fd1e4a764bfd82230f194c950	S2 tipos de Datos
+779f36e	779f36e7acd052344dfa414955c6a045ece0a48c	S2 Tipos de datos
+90aa931	90aa931e0dd2479379fe8edd766361d8f6bc6a7b	Create README.md
