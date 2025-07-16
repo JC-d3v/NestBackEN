@@ -1,23 +1,27 @@
 #!/bin/bash
 
 # version modificada Jorge
-# Asegúrate de que este script se ejecute con bash para la expansión de parámetros
-# como ${COMMIT_HASH:0:7}
-# Si no estás seguro, puedes llamarlo con 'bash /ruta/a/tu/script.sh' desde el hook.
 
-# Obtener el hash del último commit
-COMMIT_HASH=$(git rev-parse HEAD)
+export HASH1=$1
+# HASH1="68002b7"
+export HASH2=$2
+# HASH2="3052868"
 
-# Obtener el mensaje del último commit
-COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+echo "$HASH1 $HASH2"
 
 # Obtener el diff del último commit
-# IMPORTANTE: Obtener el diff del commit que ACABA de ocurrir
 # COMMIT_DIFF=$(git diff --staged)
-COMMIT_DIFF=$(git diff 68002b7 3052868)
+export COMMIT_DIFF=$(git diff $HASH1 $HASH2)
+
+# Obtener el mensaje del último commit
+# COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+export COMMIT_MESSAGE=$(git log -1 --pretty=format:%s "$HASH1")
+export COMMIT_MESSAGE2=$(git log -1 --pretty=format:%s "$HASH2")
+echo "COMMIT_MESSAGE => $COMMIT_MESSAGE => $COMMIT_MESSAGE2"
+
 
 # Preparar el prompt para Gemini
-COMANDO="Basado en el siguiente commit de Git, genera un apunte de estudio en formato Markdown que explique los cambios clave y su importancia para un curso de desarrollo,aplica SmartyPants, tabulaciones y saltos de linea a los segmentos de codigo para una facil lectura, omite los cambios del contenido de la carpeta '.study_notes'.
+export COMANDO="Basado en el siguiente commit de Git, genera un apunte de estudio en formato Markdown que explique los cambios clave y su importancia para un curso de desarrollo,aplica SmartyPants, tabulaciones y saltos de linea a los segmentos de codigo para una facil lectura, omite los cambios del contenido de la carpeta '.study_notes'.
 
 Mensaje del Commit:
 # $COMMIT_MESSAGE
@@ -27,48 +31,42 @@ $COMMIT_DIFF"
 
 # --- Inicio de la generación de la respuesta de Gemini ---
 # GEMINI_RESPONSE=$(npx @google/gemini-cli -p "$COMANDO" | grep -v '```')
-GEMINI_RESPONSE=$(gemini -p "$COMANDO" | grep -v '```')
+export RESPONSE=$(gemini -p "$COMANDO" | grep -v '```')
 
-if [[ -z "$GEMINI_RESPONSE" || "${#GEMINI_RESPONSE}" -lt 20 ]]; then
-    GEMINI_RESPONSE="No se pudo generar un apunte"
-fi
+# if [[ -z "$GEMINI_RESPONSE" || "${#GEMINI_RESPONSE}" -lt 20 ]]; then
+#     GEMINI_RESPONSE="No se pudo generar un apunte"
+# fi
 # --- Fin de la generación de la respuesta de Gemini ---
 
 # Definir la ruta relativa al repositorio para guardar las notas
 
-ROOT_DIR=$(pwd)
-NOTES_DIR="$ROOT_DIR/.study_notes" # Asegúrate de que esta ruta sea la correcta
-mkdir -p "$NOTES_DIR" # Crea el directorio si no existe
+# ROOT_DIR=$(pwd)
+# NOTES_DIR="$ROOT_DIR/.study_notes" # Asegúrate de que esta ruta sea la correcta
+# mkdir -p "$NOTES_DIR" # Crea el directorio si no existe
 
 # Generar un nombre de archivo único
-TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
-SHORT_COMMIT_HASH=${COMMIT_HASH:0:7}
-NOTE_FILENAME_SANITIZED=$(echo "$COMMIT_MESSAGE" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
+# TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+# NOTE_FILENAME_SANITIZED=$(echo "$COMMIT_MESSAGE" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
 # NOTE_FILENAME_SANITIZED=$(echo "Apuntes" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
-NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}_${TIMESTAMP}.md"
+# NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}_${TIMESTAMP}.md"
 # NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}.md"
 
 # Escribir la respuesta de Gemini en el archivo de notas
-# echo "# Apunte de Estudio para Commit: \`$SHORT_COMMIT_HASH\`" > "$NOTE_FILE"
 # echo "" >> "$NOTE_FILE"
 # echo "## Mensaje del Commit Original" >> "$NOTE_FILE"
 # echo "\`\`\`" >> "$NOTE_FILE"
 # echo "$COMMIT_MESSAGE" >> "$NOTE_FILE"
 # echo "\`\`\`" >> "$NOTE_FILE"
 # echo "" >> "$NOTE_FILE"
-echo "## Resumen de apuntes" >> "$NOTE_FILE"
-echo "$GEMINI_RESPONSE" >> "$NOTE_FILE"
-echo "" >> "$NOTE_FILE"
-echo "---" >> "$NOTE_FILE"
-echo "*Este apunte fue generado automáticamente.*" >> "$NOTE_FILE"
+# echo "## Resumen de apuntes" >> "$NOTE_FILE"
+# echo "$GEMINI_RESPONSE" >> "$NOTE_FILE"
+# echo "" >> "$NOTE_FILE"
+# echo "---" >> "$NOTE_FILE"
+# echo "*Este apunte fue generado automáticamente.*" >> "$NOTE_FILE"
 # echo "COMMIT_MESSAGE" >> "$NOTE_FILE"
 # echo "$COMMIT_MESSAGE" >> "$NOTE_FILE"
-# echo "COMMIT_HASH" >> "$NOTE_FILE"
-# echo "$COMMIT_HASH" >> "$NOTE_FILE"
-# echo "SHORT_COMMIT_HASH" >> "$NOTE_FILE"
-# echo "$SHORT_COMMIT_HASH" >> "$NOTE_FILE"
 
-echo "Apunte de estudio generado en: $NOTE_FILE"
+# echo "Apunte de estudio generado en: $NOTE_FILE"
 
 # --- Proceso de comitear y luego deshacer el commit de la nota ---
 
@@ -80,7 +78,7 @@ echo "Apunte de estudio generado en: $NOTE_FILE"
 # cd "$REPO_ROOT" || { echo "Error: No se pudo navegar a la raíz del repositorio."; exit 1; }
 
 # Añadir el archivo de la nota al index de Git
-git add "$NOTE_FILE"
+# git add "$NOTE_FILE"
 
 # Comprobar si hay cambios en el staging area (además de la nota)
 # Si solo está la nota, el siguiente commit será solo para la nota.
@@ -95,7 +93,6 @@ git add "$NOTE_FILE"
 # echo "Creando commit temporal para la nota..."
 # GIT_DIR="$(git rev-parse --git-dir)" \
 # GIT_WORK_TREE="$REPO_ROOT" \
-# git -c core.hooksPath="$TEMP_HOOKS_DIR" commit -m "temp(notes): Adding study notes for commit $SHORT_COMMIT_HASH (will be squashed)" --no-verify --allow-empty
 
 # Limpiar el directorio temporal de hooks
 # rmdir "$TEMP_HOOKS_DIR"
@@ -114,3 +111,6 @@ git add "$NOTE_FILE"
 
 # Volver al directorio original
 # cd "$ORIGINAL_DIR" || { echo "Error: No se pudo volver al directorio original."; exit 1; }
+
+export LARGO=${#RESPONSE}
+echo "Largo $LARGO"
