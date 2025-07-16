@@ -3,10 +3,10 @@
 # version modificada Jorge part II
 # Asegúrate de que este script se ejecute con bash para la expansión de parámetros
 
-echo " HASHES => $HASH1 $HASH2"
+# echo " HASHES => $HASH1 $HASH2"
 
 # export COMMIT_MESSAGE=$(git log -1 --pretty=format:%s "$HASH1")
-echo $COMMIT_MESSAGE
+# echo $COMMIT_MESSAGE
 
 export ROOT_DIR="/devel/NestBackEN"
 
@@ -18,7 +18,7 @@ export TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 
 # NOTE_FILENAME_SANITIZED=$(echo "TEMPO" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
 export NOTE_FILENAME_SANITIZED=$(echo "${COMMIT_MESSAGE}" | sed 's/[^a-zA-Z0-9_-]/_/g' | head -c 50)
-echo "NOTE_FILENAME_SANITIZED => $NOTE_FILENAME_SANITIZED"
+# echo "NOTE_FILENAME_SANITIZED => $NOTE_FILENAME_SANITIZED"
 
 export NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}_${TIMESTAMP}.md"
 
