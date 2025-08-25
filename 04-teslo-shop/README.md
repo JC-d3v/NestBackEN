@@ -24,6 +24,9 @@ docker-compose up -d
 ```
 6. levantar modo de desarrollo
 
+7. Ejecutar SEED para cargar datos de prueba
+local :3000/api/seed
+
 ```
 yarn start:dev
 ```
