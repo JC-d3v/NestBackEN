@@ -1,8 +1,3 @@
-#!/bin/bash
-
-# version modificada Jorge part II
-# Asegúrate de que este script se ejecute con bash para la expansión de parámetros
-
 # echo " HASHES => $HASH1 $HASH2"
 
 # export COMMIT_MESSAGE=$(git log -1 --pretty=format:%s "$HASH1")
@@ -27,9 +22,6 @@ export NOTE_FILE="$NOTES_DIR/${NOTE_FILENAME_SANITIZED}_${TIMESTAMP}.md"
 # Escribir la respuesta de Gemini en el archivo de notas
 echo "## Resumen de avance" >> "$NOTE_FILE"
 echo "${RESPONSE}" >> "$NOTE_FILE"
-echo "" >> "$NOTE_FILE"
-echo "---" >> "$NOTE_FILE"
-echo "*Este apunte fue generado automáticamente.*" >> "$NOTE_FILE"
 
 echo "Apunte de estudio generado en: $NOTE_FILE"
 

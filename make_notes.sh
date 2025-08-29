@@ -1,6 +1,3 @@
-#!/bin/bash
-
-# version modificada Jorge
 # ---OPCION A Obtener el mensaje del último commit
 export COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
