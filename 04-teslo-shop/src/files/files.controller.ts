@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import { Controller, Post, UploadedFile, UseInterceptors, BadRequestException, Get, Param, Res } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
@@ -7,7 +8,10 @@ import { fileFilter, fileNamer } from './helpers/index';
 
 @Controller('files')
 export class FilesController {
-  constructor(private readonly filesService: FilesService) { }
+  constructor(
+    private readonly filesService: FilesService,
+    private readonly configService: ConfigService,
+  ) { }
 
 
   @Post('product')
@@ -34,8 +38,8 @@ export class FilesController {
     // console.log({ file });
     console.log({ fileInController: file });
 
-    const secureUrl = `${file.filename}`
-
+    // const secureUrl = `${file.filename}`
+    const secureUrl = `${this.configService.get('HOST_API')}/files/product/${file.filename} `
 
     return {
       secureUrl
