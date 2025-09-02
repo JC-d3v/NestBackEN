@@ -1,0 +1,72 @@
+Para verificar y comparar las configuraciones de tus servidores de base de datos, puedes ejecutar una serie de comandos que te ayudarán a identificar las diferencias clave. Dado que el error que mostraste provenía de un driver de MySQL, los siguientes comandos están orientados principalmente a MySQL o MariaDB.
+
+Deberías ejecutar estos comandos en **ambos servidores** (el antiguo y el nuevo) y comparar los resultados.
+
+### Paso 1: Verificar Versiones de Software
+
+La diferencia más simple y a menudo la más reveladora es la versión del software.
+
+1.  **Versión de la Base de Datos:**
+    Ejecuta esta consulta SQL para ver la versión exacta de MySQL/MariaDB.
+    ```sql
+    SELECT VERSION();
+    ```
+
+2.  **Versión del Sistema Operativo:**
+    Conéctate al servidor por SSH y ejecuta:
+    ```bash
+    cat /etc/os-release
+    ```
+    Una diferencia en el SO puede implicar distintas configuraciones por defecto o diferente rendimiento.
+
+### Paso 2: Comparar Variables de Configuración Clave
+
+Estas variables controlan cómo el motor de la base de datos maneja las transacciones, los bloqueos y la concurrencia.
+
+Puedes consultar el valor de una variable con el siguiente comando SQL, reemplazando `'variable_name'`:
+```sql
+SHOW VARIABLES LIKE 'variable_name';
+```
+
+Variables importantes a comparar:
+
+1.  **Motor de Almacenamiento (Storage Engine):**
+    Es crucial que ambos usen InnoDB para soportar transacciones.
+    ```sql
+    SHOW TABLE STATUS WHERE Name = 'products';
+    ```
+    (Compara la columna `Engine` en la salida).
+
+2.  **Nivel de Aislamiento de Transacciones (Transaction Isolation Level):**
+    **Esta es una de las causas más probables de la diferencia de comportamiento.** Un nivel más estricto puede causar más bloqueos.
+    ```sql
+    SHOW VARIABLES LIKE 'transaction_isolation';
+    -- En versiones más nuevas, también puedes usar:
+    -- SELECT @@transaction_isolation;
+    ```
+    Los valores comunes son `READ-COMMITTED` y `REPEATABLE-READ` (por defecto en InnoDB).
+
+3.  **Configuración de Bloqueos (Locking):**
+    ```sql
+    -- Tiempo de espera antes de que un error de bloqueo ocurra.
+    SHOW VARIABLES LIKE 'innodb_lock_wait_timeout';
+
+    -- Si la detección de deadlocks está activada.
+    SHOW VARIABLES LIKE 'innodb_deadlock_detect';
+    ```
+
+### Paso 3: Analizar el Estado de InnoDB (Avanzado)
+
+Si quieres ver información detallada sobre el último deadlock que ocurrió en el servidor nuevo, puedes usar este comando. La salida es muy larga, pero contiene una sección extremadamente útil.
+
+```sql
+SHOW ENGINE INNODB STATUS;
+```
+
+Busca en la salida la sección llamada `LATEST DETECTED DEADLOCK`. Te dará una descripción detallada de las dos transacciones que causaron el interbloqueo, qué consultas estaban ejecutando y qué bloqueos intentaban adquirir.
+
+### Conclusión
+
+Las diferencias más probables que encontrarás estarán en la **versión de MySQL/MariaDB** y en el **nivel de aislamiento de transacciones (`transaction_isolation`)**.
+
+Aunque es útil entender estas diferencias de entorno, es importante recordar que la solución que aplicamos (cambiar las inserciones a secuenciales) es la práctica correcta. El código de la aplicación no debe depender de una configuración de servidor específica para funcionar correctamente, ya que eso lo hace frágil. La corrección asegura que el proceso de seeding sea robusto y funcione en cualquier entorno.
