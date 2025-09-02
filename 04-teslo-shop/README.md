@@ -30,3 +30,6 @@ local :3000/api/seed
 ```
 yarn start:dev
 ```
+
+
+El proyecto se encuentra corriendo db y server en wan-214
