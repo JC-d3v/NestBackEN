@@ -19,7 +19,9 @@ export class User {
   @Column('text')
   fullName: string;
 
-  @Column('boolean')
+  @Column('bool', {
+    default: true
+  })
   isActive: boolean;
 
   @Column('json', {
