@@ -3,7 +3,7 @@
 
 
 export interface JwtPayload {
-  email: string;
+  id: string;
 
   // TODO: TODAS ACCIONES QUE SE VEAN CONVENIENTES
 }
