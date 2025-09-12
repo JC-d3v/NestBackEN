@@ -48,7 +48,7 @@ export class AuthController {
 
 
   @Get('private2')
-  @SetMetadata('roles', ['admin', 'super-user'])
+  @SetMetadata('roles', ['ADMIN', 'super-user'])
   @UseGuards(
     AuthGuard(),
     UserRolesGuard)
