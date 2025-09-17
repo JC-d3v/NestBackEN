@@ -25,10 +25,10 @@ export class SeedService {
 
     const products = initialData.products;
 
-    for (const product of products) {
-      await this.productsService.create(product)
-    }
-    
+    // for (const product of products) {
+    //   await this.productsService.create(product)
+    // }
+
     return true;
   }
 }
