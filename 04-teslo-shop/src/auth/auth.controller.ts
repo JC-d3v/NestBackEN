@@ -4,13 +4,11 @@ import { AuthGuard } from '@nestjs/passport';
 import { IncomingHttpHeaders } from 'http';
 
 import { AuthService } from './auth.service';
-import { Auth, GetUser, RawHeaders } from './decorators';
-import { RoleProtected } from './decorators/role-protected.decorator';
+import { Auth, GetUser, RawHeaders, RoleProtected, ValidRoles } from './decorators';
 
 import { CreateUserDto, LoginUserDto } from './dto/index';
 import { User } from './entities/user.entity';
 import { UserRolesGuard } from './guards/user-roles.guard';
-import { ValidRoles } from './interfaces';
 
 @ApiTags('Authenticatßion')
 @Controller('auth')

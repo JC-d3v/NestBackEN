@@ -7,9 +7,8 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from '../common/dtos/pagination.dto';
 
-import { Auth, GetUser } from '../auth/decorators';
+import { Auth, GetUser, ValidRoles } from '../auth/decorators';
 import { User } from '../auth/entities/user.entity';
-import { ValidRoles } from '../auth/interfaces';
 
 @ApiTags('Productos')
 @Controller('products')
