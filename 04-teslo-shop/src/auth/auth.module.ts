@@ -26,6 +26,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         // console.log('JWT secret-->', configService.get('JWT_SECRET'));
         // console.log('JWT SECRET==>', process.env.JWT_SECRET);
         return {
+          global: true,
           secret: configService.get('JWT_SECRET'),
           signOptions: {
             expiresIn: configService.get('JWT_EXPIRES_IN')

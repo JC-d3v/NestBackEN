@@ -7,7 +7,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PaginationDto } from '../common/dtos/pagination.dto';
 
-import { Auth, GetUser, ValidRoles } from '../auth/decorators';
+import { Auth, GetUser } from '../auth/decorators';
 import { User } from '../auth/entities/user.entity';
 
 @ApiTags('Productos')
@@ -16,7 +16,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) { }
 
   @Post()
-  @Auth(ValidRoles.admin)
+  @Auth('ADMIN')
   @ApiResponse({ status: 201, description: 'Product was created', type: Product })
   @ApiResponse({ status: 400, description: 'Bad Request' })
   @ApiResponse({ status: 403, description: 'Forbidden token related' })
@@ -40,7 +40,7 @@ export class ProductsController {
   }
 
   @Patch(':id')
-  @Auth(ValidRoles.admin)
+  @Auth('ADMIN')
   update(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateProductDto: UpdateProductDto,
@@ -50,7 +50,7 @@ export class ProductsController {
   }
 
   @Delete(':id')
-  @Auth(ValidRoles.admin)
+  @Auth('ADMIN')
   remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.productsService.remove(id);
   }
