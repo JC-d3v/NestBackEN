@@ -15,7 +15,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
       <input placeholder="Message" id="message-input" />
     </form>
 
-    <h3>Messages</h3>
+    <h3>Messages:</h3>
     <ul id="messages-ul"></ul>
 
   </div>

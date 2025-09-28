@@ -22,6 +22,7 @@ Para que el servidor pueda recibir y procesar mensajes específicos del cliente,
   }
   ```
 
+
 - **`MessagesWsGateway`**: Se añadió un método `onMessageFromClient` decorado con `@SubscribeMessage('message-from-client')`. Este método se ejecutará cada vez que un cliente emita un evento con el nombre `message-from-client`.
 
   ```typescript

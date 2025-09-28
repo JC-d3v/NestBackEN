@@ -76,6 +76,4 @@ const addListeners = (socket: Socket) => {
     messagesUl.append(li);
   });
 
-
-
 }
