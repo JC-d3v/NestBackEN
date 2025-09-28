@@ -8,12 +8,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
     <ul id="clients-ul">
       <li> qwerty </li>
+      <li> qwerty </li>
     </ul>
 
     <form id="message-form">
       <input placeholder="Message" id="message-input" />
     </form>
 
+    <h3>Messages</h3>
+    <ul id="messages-ul"></ul>
 
   </div>
 `
