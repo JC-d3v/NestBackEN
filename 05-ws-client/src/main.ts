@@ -7,8 +7,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <span id="server-status">offline</span>
 
     <ul id="clients-ul">
-          <li> qwerty </li>
+      <li> qwerty </li>
     </ul>
+
+    <form id="message-form">
+      <input placeholder="Message" id="message-input" />
+    </form>
 
 
   </div>
