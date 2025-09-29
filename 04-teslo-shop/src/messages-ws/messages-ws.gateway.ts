@@ -1,8 +1,6 @@
 import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { MessagesWsService } from './messages-ws.service';
-import { NewMessageDto } from './dtos/new-message.dto';
 import { NewMessageDto } from './dtos/new-message.dto';
 
 @WebSocketGateway({ cors: true })
@@ -17,10 +15,14 @@ export class MessagesWsGateway implements OnGatewayConnection, OnGatewayDisconne
 
 
   handleConnection(client: Socket) {
+    // console.log(client);
+    const token = client.handshake.headers.authentication as string;
+    console.log({ token });
+
     // console.log('Cliente conectado', client.id);
     this.messagesWsService.registerClient(client);
 
-    console.log({ ClientesConectados: this.messagesWsService.getConnectedClients() });
+    // console.log({ ClientesConectados: this.messagesWsService.getConnectedClients() });
 
     this.wss.emit('clients-updated', this.messagesWsService.getConnectedClients());
   }

@@ -5,7 +5,7 @@ export COMMIT_DIFF=$(git diff --staged)
 # echo "mensaje del commit => $COMMIT_MESSAGE"
 
 # Preparar el prompt para Gemini
-export COMANDO="Analiza el siguiente commit de Git y genera exclusivamente el contenido en formato Markdown para un apunte de estudio. El apunte debe explicar los cambios clave y su importancia. En los segmentos de código, aplica tabulaciones y saltos de línea para una fácil lectura. Omite cualquier cambio relacionado con la carpeta '.study_notes'. No intentes escribir un archivo, solo devuelve el texto del apunte.
+export COMANDO="Analiza el siguiente commit de Git y genera exclusivamente el contenido en formato Markdown para un apunte de estudio. El apunte debe explicar los cambios clave y su importancia para un curso de desarrollo. En los segmentos de código, aplica tabulaciones y saltos de línea para una fácil lectura. Omite cualquier cambio relacionado con la carpeta '.study_notes'. No intentes escribir un archivo, solo devuelve el texto del apunte.
 
 Mensaje del Commit:
 # $COMMIT_MESSAGE
