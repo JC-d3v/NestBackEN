@@ -1,6 +1,8 @@
 
 import { Manager, Socket } from 'socket.io-client';
 
+let socket: Socket;
+
 export const connectToServer = (token: string) => {
 
 
@@ -13,14 +15,15 @@ export const connectToServer = (token: string) => {
     // path: '/socket.io' // default  is '/socket.io'   
   });
 
-  const socket = manager.socket('/');
-  console.log({ socket });
+  socket?.removeAllListeners();
+  socket = manager.socket('/');
+  // console.log({ socket });
 
-  addListeners(socket);
+  addListeners();
 
 }
 
-const addListeners = (socket: Socket) => {
+const addListeners = () => {
   const serverStatusLabel = document.querySelector('#server-status')!;
 
   const clientsUl = document.querySelector('#clients-ul')!;
@@ -41,7 +44,7 @@ const addListeners = (socket: Socket) => {
   });
 
   socket.on('clients-updated', (clients: string[]) => {
-    console.log({ clients });
+    // console.log({ clients });
     let clientsHtml = '';
     clients.forEach(clientId => {
       clientsHtml += `
