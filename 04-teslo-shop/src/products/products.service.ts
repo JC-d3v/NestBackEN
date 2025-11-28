@@ -60,13 +60,27 @@ export class ProductsService {
       skip: offset,
       relations: {
         images: true,
+      },
+      order: {
+        id: 'ASC'
       }
-    })
+    });
 
-    return products.map((product) => ({
-      ...product,
-      images: product.images.map(img => img.url)
-    }))
+    const totalProducts = await this.productRepository.count({
+      // TODO: Condiciones de genero productos
+      //where: gender ? [{ gender }, { gender: 'unisex' }] : {},
+    });
+
+    return {
+      count: totalProducts,
+      pages: Math.ceil(totalProducts / limit),
+      products: products.map((product) => ({
+        ...product,
+        images: product.images.map((img) => img.url),
+      })),
+    };
+
+
   }
 
   async findOne(term: string) {
